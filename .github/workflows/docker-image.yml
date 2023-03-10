@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "*"
+  workflow_dispatch:
   #   branches: [ "master" ]
   # pull_request:
   #   branches: [ "master" ]
@@ -24,3 +25,9 @@ jobs:
     steps:
       - name: Push Docker image
         run: docker push rdnuansa/space-invader-web:${{  github.ref_name }}
+  
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Deploy container
+        run: docker run -d -p 80:80 --name space-invader rdnuansa/space-invader-web:${{  github.ref_name }}
