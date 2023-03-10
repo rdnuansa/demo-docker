@@ -32,9 +32,6 @@ jobs:
       - name: Remove existing container
         run: docker rm space-invader -f
       
-      - name: prune unused images
-        run: docker image prune -a -f 
-      
   deploy:
     needs: 
       - push
@@ -43,3 +40,10 @@ jobs:
     steps:
       - name: Deploy container
         run: docker run -d -p 80:80 --name space-invader rdnuansa/space-invader-web:${{  github.ref_name }}
+
+  prune-image:
+    needs: deploy
+    runs-on: self-hosted
+    steps:
+      - name: prune unused images
+        run: docker image prune -a -f 
