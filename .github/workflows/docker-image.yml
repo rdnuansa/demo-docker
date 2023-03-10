@@ -33,7 +33,7 @@ jobs:
         run: docker rm space-invader -f
       
       - name: prune unused images
-        run: docker image prune -f
+        run: docker image prune -a -f 
       
   deploy:
     needs: 
