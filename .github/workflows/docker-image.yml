@@ -32,8 +32,13 @@ jobs:
       - name: Remove existing container
         run: docker rm space-invader -f
       
+      - name: prune unused images
+        run: docker image prune -f
+      
   deploy:
-    needs: push
+    needs: 
+      - push
+      - prune
     runs-on: self-hosted
     steps:
       - name: Deploy container
