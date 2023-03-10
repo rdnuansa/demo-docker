@@ -25,6 +25,13 @@ jobs:
       - name: Push Docker image
         run: docker push rdnuansa/space-invader-web:${{  github.ref_name }}
   
+  prune:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Remove existing container
+        run: docker rm space-invader -f
+      
   deploy:
     needs: push
     runs-on: self-hosted
