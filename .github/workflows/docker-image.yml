@@ -16,5 +16,9 @@ jobs:
     - name: Build the Docker image
       run: docker build . --tag rdnuansa/space-invader-web:latest
     
-    - name: Push Docker image
-      run: docker push rdnuansa/space-invader-web:latest
+  
+  push:
+    runs-on: self-hosted
+    steps:
+      - name: Push Docker image
+        run: docker push rdnuansa/space-invader-web:latest
